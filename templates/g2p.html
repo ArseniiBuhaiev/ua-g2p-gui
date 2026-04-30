@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Транскрипція - Phonetics Lab UA{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card bg-body">
+                <label class="fw-bold mb-2">Текст для обробки</label>
+                <textarea id="inputText" class="form-control mb-3 flex-grow-1" rows="10" placeholder="{{ input_placeholder }}"></textarea>
+
+                <div class="mb-4">
+                    <label class="btn btn-outline-secondary w-100 btn-custom">
+                        📂 Завантажити із .txt
+                        <input type="file" id="fileInput" hidden accept=".txt">
+                    </label>
+                </div>
+            
+                <div class="p-3 bg-body-tertiary rounded-4">
+                    <div class="row">
+                        <div class="col-6 border-end border-secondary-subtle">
+                            <span class="d-block mb-2 small fw-bold text-uppercase text-secondary">Транскрипція</span>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mode" id="m1" value="phonetic">
+                                <label class="form-check-label small" for="m1">Фонетична</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mode" id="m2" value="phonematic">
+                                <label class="form-check-label small" for="m2">Фонематична</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mode" id="m3" value="ipa" checked>
+                                <label class="form-check-label small" for="m3">МФА (IPA)</label>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6 ps-3">
+                            <span class="d-block mb-2 small fw-bold text-uppercase text-secondary">Наголошувач</span>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="accentor" id="a1" value="dictionary" checked>
+                                <label class="form-check-label small" for="a1">Словниковий</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="accentor" id="a2" value="transformer">
+                                <label class="form-check-label small" for="a2">Трансформер</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="accentor" id="a3" value="hybrid">
+                                <label class="form-check-label small" for="a3">Гібридний</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card bg-body position-relative">
+                <div id="loader">
+                    <div class="spinner-grow text-primary mb-3" role="status"></div>
+                    <h5 class="fw-bold">Обробка...</h5>
+                    <p class="small text-secondary">Це може зайняти кілька секунд</p>
+                </div>
+
+                <label class="fw-bold mb-2">Результат</label>
+                <textarea id="outputText" class="form-control mb-3 flex-grow-1" rows="10" readonly placeholder="{{ output_placeholder }}"></textarea>
+                
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-custom shadow-sm" id="runBtn" onclick="processText()">
+                        Транскрибувати <small class="ms-2 opacity-50">(Shift+Enter)</small>
+                    </button>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button class="btn btn-outline-primary btn-custom w-100" onclick="saveFile()">💾 Зберегти .txt</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-outline-primary btn-custom w-100" onclick="copyText()">📋 Скопіювати</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
